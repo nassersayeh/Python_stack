@@ -28,6 +28,6 @@ def four():
         session['count']=0
     session['count']+=int(request.form['num'])
     session['sik']=request.form['num']
-    return redirect('/')
+    return render_template("index.html",count=session['count'])
 if __name__=="__main__":
     app.run(debug=True)
