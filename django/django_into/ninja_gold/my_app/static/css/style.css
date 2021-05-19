@@ -1,0 +1,40 @@
+*{
+    padding: 0px;
+    margin: 0 auto;
+}
+main{
+    width: 800px;
+}
+.top{
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+.forms{
+    display:flex;
+    justify-content: space-evenly;
+    margin: 10px;
+}
+form{
+    border: 2px solid black;
+    width: 200px;
+    height: 150px;
+    margin: 20px;
+    
+    
+}
+form h1{
+    text-align: center;
+}
+form h4{
+    text-align: center;
+}
+form button{
+    margin-top: 70px;
+    margin-left: 45px;
+    border-radius: 3px;
+}
+textarea{
+    width: 800px;
+    height: 200px;
+    text-align: start;
+}
