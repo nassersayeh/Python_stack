@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter</title>
+</head>
+<body>
+    <h1>welcome to the Great Number Game !</h1>
+    <p>i am thinking of a number between 1 and 100</p>
+    <p>Take a guess !</p>
+    <form method="POST" action="/start">
+        {% csrf_token %}
+        {%if num > rand %}
+        <div style="background-color: red; display: inline-block;justify-content: center;margin-left: 50px;">
+            <p >Too High</p>
+            <p>{{request.session.counter}} Times you Played</p>
+            {%if request.session.counter == 5%}
+            <p>You Lose</p>
+            <a href="reset" >Reset</a>
+            <style>
+                #b1{
+                    display: none;
+                }
+            </style>
+            {%endif%}
+        </div>
+        {%elif num == rand%}
+        <div style="background-color: rgb(26, 184, 5);display: inline-block;justify-content: center;margin-left: 50px;" >
+            <p >correct !</p>
+            <p>{{request.session.counter}} Times you Played</p>
+            <p>You Win !!</p>
+            
+            
+            <a href="reset" >play agian</a>
+            
+            
+        </div>
+        {%else%}
+        <div style="background-color: red;display: inline-block;justify-content: center;margin-left: 50px;">
+            <p >Too Low</p>
+            <p>{{request.session.counter}} Times you Played</p>
+            {%if request.session.counter == 5%}
+            <p>You Lose</p>
+            <a href="reset" >Reset</a>
+            <style>
+                #b1{
+                    display: none;
+                }
+            </style>
+            {%endif%}
+        </div>
+        {%endif%}
+        <br><br>
+        <input type='number' name='num' ><br><br>
+        <input type="submit" name="submite"id="b1">
+        
+    </form>
+
+</body>
+</html>

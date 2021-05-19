@@ -1,0 +1,9 @@
+.high p{
+    background-color: red;
+}
+.low p{
+    background-color: red;
+}
+.correct p{
+    background-color: green;
+}

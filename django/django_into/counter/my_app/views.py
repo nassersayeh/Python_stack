@@ -18,5 +18,5 @@ def addtow(request):
     return redirect("/")
 
 def userinput(request):
-    request.session['counter']+= int(request.POST['num'])
+    request.session['counter']+= request.POST['num']
     return redirect("/")
