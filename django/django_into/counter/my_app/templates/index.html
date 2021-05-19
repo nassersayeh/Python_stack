@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter</title>
+</head>
+<body>
+    <h1>Counter</h1>
+    <p>{{request.session.counter}}</p>
+    <a href="destroy" >Reset</a>
+    <a href="addtow" >Plustwo</a>
+    <form method="POST" action="/userinput">
+        {% csrf_token %}
+        <input type="text" name="num"><br><br>
+            
+        <input type="submit" name="submite">
+        
+    </form>
+</body>
+</html>
