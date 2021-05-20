@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users with Templates</title>
+</head>
+<body>
+    <div>
+    <h1>All the Users</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>first Name</th>
+            <th>last Name</th>
+            <th>Email</th>
+            <th>Age</th>
+        </tr>
+        {% for users in all_the_user %}
+        <tr>
+            <td>{{users.id}}</td>
+            <td>{{users.firstname}}</td>
+            <td>{{users.lastname}}</td>
+            <td>{{users.email}}</td>
+            <td>{{users.age}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    <div style="border: 1px solid black; width: 400px;height: 1px;"></div>
+    <div>
+        <form method="POST" action="adduser">
+            {% csrf_token %}
+            <h1>Add A user</h1>
+            First Name :<input type="text" name="firstname">
+            Last Name :<input type="text"name = "lastname">
+            Age :<input type="text" name="age">
+            Email :<input type="email" name="email" id="email">
+
+            <input type="submit" value="Add">
+        </form>
+    </div>
+</body>
+</html>
