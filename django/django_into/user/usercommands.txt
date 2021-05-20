@@ -1,0 +1,34 @@
+>>> from my_app.models import user
+>>> user.object.create(firstname =
+...
+  File "<console>", line 1
+
+    ^
+SyntaxError: expression cannot contain assignment, perhaps you meant "=="?
+>>> user.object.create(firstname = "nasser" , lastname = "sayeh " , email = "nasser.sayeh89@gmail.com" , age = 29)
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: type object 'user' has no attribute 'object'
+>>> user.objects.create(firstname = "nasser" , lastname = "sayeh " , email = "nasser.sayeh89@gmail.com" , age = 29)
+<user: user object (1)>
+>>> user.objects.create(firstname = "abed" , lastname = "gholi " , email = "a.e.ghouli@gmail.com" , age = 26)
+<user: user object (2)>
+>>> user.objects.create(firstname = "mohmmad" , lastname = "ibrshim " , email = "ai@gmail.com" , age = 36)
+<user: user object (3)>
+>>> user.objects.all()
+<QuerySet [<user: user object (1)>, <user: user object (2)>, <user: user object (3)>]>
+>>> user.objects.last()
+<user: user object (3)>
+>>> user.objects.first()
+<user: user object (1)>
+>>> c = user.objects.get(id=3)
+>>> c.lastname = "Pancakes"
+>>> c.save()
+>>> c = user.objects.get(id=2)
+>>> c.delete()
+(1, {'my_app.user': 1})
+>>> user.objects.all().order_by("firstname")
+<QuerySet [<user: user object (3)>, <user: user object (1)>]>
+>>> user.objects.all().order_by("-firstname")
+<QuerySet [<user: user object (1)>, <user: user object (3)>]>
+>>>
