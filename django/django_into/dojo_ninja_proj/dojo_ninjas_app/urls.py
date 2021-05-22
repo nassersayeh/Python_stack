@@ -2,7 +2,5 @@ from django.urls import path
 from . import views
 urlpatterns = [
     path('', views.index),
-    path('adduser',views.adduser),
-    path('show/<int:id>',views.show)
     
 ]

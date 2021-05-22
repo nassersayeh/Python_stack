@@ -11,3 +11,9 @@ def index(request):
 def adduser(request):
     user.objects.create(firstname = request.POST['firstname'] , lastname = request.POST['lastname'] , email = request.POST['email'], age = request.POST['age'])
     return redirect('/')
+
+def show(request, id):
+    context = {
+        "id" : user.objects.get(id=id)
+        }
+    return render(request,"index2.html",context)
