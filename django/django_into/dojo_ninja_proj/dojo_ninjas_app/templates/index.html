@@ -30,7 +30,9 @@
         Last Name <input type="text" name="lastname"><br>
         Dojo <select name="dojo" id="dojo"><br>
             {%for i in  dojonames %}
+            
             <option value="{{i.name}}">{{i.name}}</option>
+        
             {%endfor%}
         </select><br>
         <input type="submit" value="Add" style="margin-left: 50px;margin-top: 10px;">
@@ -41,10 +43,18 @@
     <div style="display:inline-block;margin-left: 100px;align-items: center;text-align: center;">
     <h1>All the Dojos</h1>
     {%for i in  dojos %}
-    <h2>Ninjas at the {{i.name}} Dojo</h2>
+    <h2>Ninjas at the {{i.name}} Dojo</h2> 
+    <form action="delete" method="POST">
+        {% csrf_token %}
+    <input type="hidden" name="dojo" value="{{i.name}}">
+    <input type="submit" value="delet">
+    </form>
     <ul>
+        
         {%for j in ninjas%}
-        {%if j.dojo.name == i.name%}
+        
+        {%if j.dojo.name == i.name%} 
+        
         <li>{{j.first_name }}  {{j.last_name}}</li>
         {%endif%}
     </ul>
