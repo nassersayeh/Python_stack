@@ -7,7 +7,8 @@ class Books (models.Model):
 class Authours (models.Model):
     first_name = models.CharField(max_length=45)
     Last_name = models.CharField(max_length=45)
-    books = models.ManyToManyField(Books,related_name="Books")
+    note = models.TextField()
+    books = models.ManyToManyField(Books,related_name="authors")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     notes = models.TextField()
