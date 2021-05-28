@@ -5,8 +5,9 @@ from datetime import date, datetime, timedelta
 from django.utils import timezone
 def home(req):
     req.session['user'] = ""
+    req.session['mymessages'] = ""
     return render(req,"home.html")
-def create(req):
+def createuser(req):
     errors = User.objects.basic_validator(req.POST)
         # check if the errors dictionary has anything in it
     if len(errors) > 0:
@@ -62,17 +63,82 @@ def login(req):
             'fname' : user.first_name,
             'password':user.passwod,
             'email' : user.email,
-            'lastname' : user.last_name
+            'lastname' : user.last_name,
+            'userid':user.id
         }
         req.session['user']= data
         return redirect("/welcome")
 
 def welc(req):
-    if req.session['user']:
+    all_messages = Messages.objects.all()
+    #all_comment = Comments.objects.all()
+    if req.session['user'] :
         user = req.session['user']
-        return render(req,"welcome.html",user)
+        data={
+        'my_massege':all_messages,
+        'user':user,
+        #'comments':all_comment
+        
+        }
+        
+        return render(req,"welcome.html",data)
     return redirect('/')
 def logout(req):
     if req.session['user']:
         req.session.clear()
         return redirect('/')
+def creatmessage(req):
+    users = User.objects.filter(first_name = req.session['user']['fname'])
+    user = users[0]
+    message =req.POST['messagearea']
+    if len(message) != 0:
+        Messages.objects.create(message =  message, user = user )
+        #all_messages = Messages.objects.all()
+        data = {
+            "mymessag" : message,
+            
+        }
+        req.session['mymessages'] = data
+        return redirect('/welcome')
+def delete_message(req,id):
+    users = User.objects.filter(first_name = req.session['user']['fname'])
+    user = users[0]
+    message_for_delete = Messages.objects.filter(id=id , user = user  )
+    message_for_delete.delete()
+    return redirect('/welcome')
+
+def showCommenits(req,id):
+    all_messages = Messages.objects.filter(id=id)
+    all_messages.first()
+    users = req.session['user']
+    myCommints = Comments.objects.filter(message = all_messages[0] )
+    if req.session['user']:
+        user = req.session['user']
+        data={
+        'my_commints':myCommints,
+        'user':user,
+        'my_massege': all_messages
+        }
+    return render(req,'profile.html',data)
+def createComment(req,id):
+    comment = req.POST['mycomment']
+    users = User.objects.filter(first_name = req.session['user']['fname'])
+    user = users[0]
+    messages = Messages.objects.filter(id = id)
+    message = messages.first()
+    Comments.objects.create(comment = comment ,user = user , message = message )
+    return redirect('/welcome')
+def deletcomment(req,id):
+    users = User.objects.filter(first_name = req.session['user']['fname'])
+    user = users[0]
+    Commentfordelet = Comments.objects.filter(id=id , user = user) 
+    Commentfordelet.delete()
+    return redirect('/welcome')
+
+
+
+
+
+
+
+

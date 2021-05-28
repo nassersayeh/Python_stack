@@ -29,8 +29,9 @@ class BlogManager(models.Manager):
         if postTime:
             todayTimeAge = int(todayTimeList[0]) + int(todayTimeList[1]) + int(todayTimeList[2])
             postTimeAge = int(postTimeList[0]) + int(postTimeList[1]) + int(postTimeList[2])
-            if postTimeAge - todayTimeAge < 13:
-                errors["Age"] = "Sorry Your Age less than 13 !"
+            age = todayTimeAge - postTimeAge 
+            if age < 13:
+                errors["Age"] = "Sorry Your Age less than 13 !"+str(age)
         return errors
     def login_Validator(self,postData):
         errors2={}
@@ -40,10 +41,8 @@ class BlogManager(models.Manager):
             errors2["loginpass"] = "Please enter Valid email or Password to login "
         lisOfEmails = User.objects.filter(email=postData['loginemail'])
         lisOfPassword = User.objects.filter(passwod=postData['loginpass'])
-        if lisOfEmails != postData['loginemail']:
-            errors2['notexsist'] = "Please enter Valid email or Password to login"
-        if lisOfPassword !=  postData['loginpass']:
-            errors2['notexsist'] = "Please enter Valid email or Password to login"
+        
+        
         return errors2
 class User(models.Model):
     first_name = models.CharField(max_length=255)
@@ -51,4 +50,17 @@ class User(models.Model):
     email = models.EmailField(max_length=255)
     passwod = models.CharField(max_length=255)
     dateOfBirth = models.DateField(null=True, verbose_name='Date of Birth')
-    objects = BlogManager() 
+    objects = BlogManager()
+class Messages(models.Model):
+    message = models.TextField()
+    user = models.ForeignKey(User,related_name="Users", on_delete = models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = BlogManager()
+class Comments(models.Model):
+    comment = models.TextField()
+    user = models.ForeignKey(User,related_name="Userss", on_delete = models.CASCADE)
+    message = models.ForeignKey(Messages,related_name="messages", on_delete = models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = BlogManager()
