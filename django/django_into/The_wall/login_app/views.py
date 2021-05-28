@@ -78,7 +78,6 @@ def welc(req):
         'my_massege':all_messages,
         'user':user,
         #'comments':all_comment
-        
         }
         
         return render(req,"welcome.html",data)

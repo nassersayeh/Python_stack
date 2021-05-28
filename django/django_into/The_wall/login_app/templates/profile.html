@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{%block content%}
     <div style="display: flex;justify-content: space-between;">
     <h2>CodingDojo Wall</h2>
-    <p style="margin-left: 850px;">Succsess ! Welcome Mr{{fname}}!</p>
+    <p style="margin-left: 450px;">Succsess ! Welcome Mr {{user.fname}} !</p>
     <a href="/logout" style="margin-top: 12px;">Log off</a>
 </div>
 <hr>
@@ -44,5 +38,4 @@
 <div>
     <a href="/welcome">back</a>
 </div>
-</body>
-</html>
+{%endblock%}
